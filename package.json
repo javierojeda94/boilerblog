@@ -4,7 +4,9 @@
   "description": "A boilerplate code for a blog made with MEAN and Angular2",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "gulp --gulpfile client/gulpfile.babel.js watch",
+    "serve": "gulp --gulpfile client/gulpfile.babel.js serve"
   },
   "keywords": [
     "boilerplate",
@@ -22,12 +24,14 @@
     "mongodb": "^2.2.11"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
     "babel-core": "^6.18.2",
     "babel-preset-latest": "^6.16.0",
     "babelify": "^7.3.0",
+    "browser-sync": "^2.18.2",
     "browserify": "^13.1.1",
     "gulp": "^3.9.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-streamify": "^1.0.2",
     "vinyl-source-stream": "^1.1.0"
   }
 }
