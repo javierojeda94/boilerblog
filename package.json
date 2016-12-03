@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "gulp --gulpfile client/gulpfile.babel.js watch",
-    "serve": "gulp --gulpfile client/gulpfile.babel.js serve"
+    "serve": "gulp --gulpfile client/gulpfile.babel.js serve",
+    "dist": "gulp --gulpfile client/gulpfile.babel.js transpile"
   },
   "keywords": [
     "boilerplate",
@@ -29,6 +29,8 @@
     "babelify": "^7.3.0",
     "browser-sync": "^2.18.2",
     "browserify": "^13.1.1",
+    "del": "^2.2.2",
+    "glob": "^7.1.1",
     "gulp": "^3.9.1",
     "gulp-htmlmin": "^3.0.0",
     "gulp-streamify": "^1.0.2",
