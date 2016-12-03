@@ -11,22 +11,22 @@ let browserSync = require("browser-sync").create();
 gulp.task("default", ["serve"]);
 
 gulp.task("move-html", () => {
-  gulp.src("index.html")
+  gulp.src("src/index.html")
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest("dist"));
-  return gulp.src("views/**/*")
+  return gulp.src("src/views/**/*")
     .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(gulp.dest("dist/views", {force: true}));
 });
 
 gulp.task("move-img", () => {
-  gulp.src("favicon.png").pipe(gulp.dest("dist"));
-  return gulp.src("img/**/*")
+  gulp.src("src/favicon.png").pipe(gulp.dest("dist"));
+  return gulp.src("src/img/**/*")
     .pipe(gulp.dest("dist/img"));
 });
 
 gulp.task("move-css", () => {
-  return gulp.src("css/**/*")
+  return gulp.src("src/css/**/*")
     .pipe(gulp.dest("dist/css"));
 });
 
@@ -35,7 +35,7 @@ gulp.task('clean-dist', function () {
 });
 
 gulp.task("transpile", ["clean-dist", "move-html", "move-img", "move-css"], () => {
-  let files = glob.sync("src/**/*.js");
+  let files = glob.sync("src/js/**/*.js");
   return browserify({entries: files})
     .transform("babelify")
     .bundle()
@@ -57,8 +57,5 @@ gulp.task("serve", ["transpile"], () => {
       baseDir: "dist"
     }
   });
-  gulp.watch([
-    "index.html",
-    "src/**/*.js",
-  ], ["reload"]);
+  gulp.watch(["src/**/*"],["reload"]);
 });
