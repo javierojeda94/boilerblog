@@ -30,7 +30,7 @@ gulp.task("move-css", () => {
     .pipe(gulp.dest("dist/css"));
 });
 
-gulp.task('clean-dist', function () {
+gulp.task('clean-dist', () => {
   return del.sync("dist/**/*");
 });
 
