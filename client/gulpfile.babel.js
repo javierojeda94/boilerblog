@@ -43,7 +43,7 @@ gulp.task("transpile", ["clean-dist", "move-html", "move-img", "move-css"], () =
       console.error( "\nError: ", error.message, "\n");
       this.emit("end");
     }).pipe(source("bundle.js"))
-    //.pipe(streamify(uglify()))
+    .pipe(streamify(uglify()))
     .pipe(gulp.dest("dist"));
 });
 
