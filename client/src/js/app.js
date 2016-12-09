@@ -1,9 +1,10 @@
-import angular from 'angular'
-import 'angular-ui-router'
+import angular from 'angular';
+import 'angular-ui-router';
 
 angular.module('boilerblog', ["ui.router"])
 
-.config(($stateProvider, $urlRouterProvider) => {
+.config(['$stateProvider','$urlRouterProvider',
+($stateProvider, $urlRouterProvider) => {
   // redirect to '/' when no route matches
   $urlRouterProvider.otherwise('/');
   // declare the states and routes for the app
@@ -14,4 +15,4 @@ angular.module('boilerblog', ["ui.router"])
     controller: 'HomeController',
     controllerAs: 'homeCtrl'
   });
-});
+}]);
