@@ -49,6 +49,7 @@ router.route('/:id')
   })
   .put(parseUrlencoded, (req, res) => {
     let newPostAttributes = req.body;
+    newPostAttributes.updated_at = Date.now();
     Post.findByIdAndUpdate(req.Post._id, newPostAttributes, (err, post) => {
       if(err) {
         res.json(err);
