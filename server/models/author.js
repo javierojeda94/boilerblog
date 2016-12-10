@@ -1,6 +1,7 @@
 'use strict';
 
 let mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 let Schema = mongoose.Schema;
 
 // define the author schema
@@ -11,12 +12,16 @@ let authorSchema = new Schema({
   },
   nickname: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   bio: String
 },{
   versionKey: false
 });
+
+// add the unique validator for the unique:true 
+authorSchema.plugin(uniqueValidator);
 
 // create a model based on the previously created schema
 let Author = mongoose.model('Author', authorSchema);
