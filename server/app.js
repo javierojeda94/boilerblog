@@ -3,6 +3,9 @@
 let express = require('express');
 let app = express();
 let mongoose = require('mongoose');
+// models
+let authors = require('./routes/authors');
+let posts = require('./routes/posts');
 
 // connect to database
 mongoose.connect('mongodb://localhost/boilerblog');
@@ -10,8 +13,8 @@ mongoose.connect('mongodb://localhost/boilerblog');
 // serve static files from client/dist folder
 app.use(express.static(__dirname + '/../client/dist'));
 
-// posts objects
-let posts = require('./routes/posts');
+// models routes
+app.use('/authors', authors);
 app.use('/posts', posts);
 
 // start server
