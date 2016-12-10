@@ -22,7 +22,7 @@ let postSchema = new Schema({
     type: Date
   }
 },{
-  versionKey: 'updates_count'
+  versionKey: false
 });
 
 // create a model based on the previously created schema
