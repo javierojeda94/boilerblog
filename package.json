@@ -23,6 +23,7 @@
     "express": "^4.14.0",
     "mongodb": "^2.2.11",
     "mongoose": "^4.7.1",
+    "mongoose-relationship": "^0.1.5",
     "mongoose-unique-validator": "^1.0.3"
   },
   "devDependencies": {

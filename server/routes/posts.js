@@ -10,7 +10,7 @@ let parseUrlencoded = bodyParser.urlencoded({ extended: false });
 
 router.route('/')
   .get((req, res) => {
-    Post.find({}, (err, posts) => {
+    Post.find({}).populate('author').exec((err, posts) => {
       if(err){
         res.json(err);
       }else{
@@ -32,7 +32,7 @@ router.route('/')
 
 router.route('/:id')
   .all((req, res, next) => {
-    Post.findById(req.params.id, (err, post) => {
+    Post.findById(req.params.id).populate('author').exec((err, post) => {
       if(post){
         req.Post = post;
         next();

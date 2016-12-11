@@ -15,12 +15,16 @@ let authorSchema = new Schema({
     required: true,
     unique: true
   },
-  bio: String
+  bio: String,
+  posts:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Post'
+  }]
 },{
   versionKey: false
 });
 
-// add the unique validator for the unique:true 
+// add the unique validator for the unique:true
 authorSchema.plugin(uniqueValidator);
 
 // create a model based on the previously created schema
