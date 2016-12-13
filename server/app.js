@@ -6,6 +6,9 @@ let mongoose = require('mongoose');
 // models
 let authors = require('./routes/authors');
 let posts = require('./routes/posts');
+// use a loger for requests
+let logger = require('./logger');
+app.use(logger);
 
 // connect to database
 mongoose.connect('mongodb://localhost/boilerblog');
