@@ -19,6 +19,7 @@
   "dependencies": {
     "angular": "^1.5.9",
     "angular-ui-router": "^0.3.2",
+    "angular-ui-router-styles": "0.0.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mongodb": "^2.2.11",

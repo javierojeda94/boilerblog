@@ -1,0 +1,54 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+header {
+  height: 50px;
+  padding: 0 250px;
+  background-color: #448ae4;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+header a, header nav {
+  align-self: stretch;
+}
+header a {
+  flex-grow: 1;
+  text-decoration: none;
+  color: white;
+}
+header a:hover {
+  cursor: pointer;
+}
+header a:visited {
+  color: white;
+}
+header nav {
+  width: 210px;
+  display: flex;
+  align-items: stretch;
+}
+header nav a {
+  flex: 1 0 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+header nav a:hover{
+  cursor: pointer;
+  background-color: #699de0;
+}
+main {
+  padding: 0 250px;
+}
+@media screen and (max-width: 1024px){
+  nav {
+    display: none;
+  }
+  header h1{
+
+  }
+}

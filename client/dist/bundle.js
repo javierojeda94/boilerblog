@@ -9,19 +9,62 @@ require('angular-ui-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_angular2.default.module('boilerblog', ["ui.router"]).config(function ($stateProvider, $urlRouterProvider) {
+_angular2.default.module('boilerblog', ["ui.router", "uiRouterStyles"]).config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   // redirect to '/' when no route matches
   $urlRouterProvider.otherwise('/');
   // declare the states and routes for the app
   $stateProvider.state('app', {
     url: '/',
-    templateUrl: 'views/home.html',
+    templateUrl: 'views/app/home.html',
     controller: 'HomeController',
-    controllerAs: 'homeCtrl'
+    controllerAs: 'homeCtrl',
+    data: {
+      css: 'css/app/home.css'
+    }
   });
-});
+  $stateProvider.state('app.authors', {
+    url: 'authors',
+    templateUrl: 'views/app/home-authors.html',
+    controller: 'AuthorsController',
+    controllerAs: 'authorsCtrl'
+  });
+  $stateProvider.state('app.posts', {
+    url: 'posts',
+    templateUrl: 'views/app/home-posts.html',
+    controller: 'PostsController',
+    controllerAs: 'postsCtrl'
+  });
+  $stateProvider.state('app.contact', {
+    url: 'contact',
+    templateUrl: 'views/app/home-contact.html',
+    controller: 'ContactController',
+    controllerAs: 'contactCtrl'
+  });
+}]);
 
-},{"angular":5,"angular-ui-router":3}],2:[function(require,module,exports){
+},{"angular":9,"angular-ui-router":7}],2:[function(require,module,exports){
+'use strict';
+
+// redefine the module and create the AuthorsController
+angular.module('boilerblog').controller('AuthorsController', ['$scope', function ($scope) {
+  // $scope'd variable
+  $scope.header = 'Autores';
+  // local variable
+  this.message = 'This is a list of the authors registered on this blog';
+}]);
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+// redefine the module and create the AuthorsController
+angular.module('boilerblog').controller('ContactController', ['$scope', function ($scope) {
+  // $scope'd variable
+  $scope.header = 'Contact';
+  // local variable
+  this.message = 'Say hi. We don\'t bite... Usually';
+}]);
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 // redefine the module and create the HomeController
@@ -32,7 +75,98 @@ angular.module('boilerblog').controller('HomeController', ['$scope', function ($
   this.message = 'Welcome to this boilerplate site for a blog';
 }]);
 
-},{}],3:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
+'use strict';
+
+// redefine the module and create the AuthorsController
+angular.module('boilerblog').controller('PostsController', ['$scope', function ($scope) {
+  // $scope'd variable
+  $scope.header = 'Posts';
+  // local variable
+  this.message = 'This is a list of the posts publichsed by our authors';
+}]);
+
+},{}],6:[function(require,module,exports){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**
+ * @author Manuel Mazzuola
+ * https://github.com/manuelmazzuola/angular-ui-router-styles
+ * Inspired by https://github.com/tennisgent/angular-route-styles
+ */
+
+(function () {
+  'use strict';
+
+  angular.module('uiRouterStyles', ['ui.router']).directive('uiRouterStyles', uiRouterStylesDirective);
+
+  uiRouterStylesDirective.$inject = ['$rootScope', '$compile', '$state', '$interpolate', '$document'];
+  function uiRouterStylesDirective($rootScope, $compile, $state, $interpolate, $document) {
+    var directive = {
+      restrict: 'EA',
+      link: uiRouterStylesLink
+    };
+
+    return directive;
+
+    function uiRouterStylesLink(scope) {
+      var start = $interpolate.startSymbol(),
+          end = $interpolate.endSymbol();
+      var html = '<link rel="stylesheet" ng-repeat="(k, css) in routeStyles track by k" ng-href="' + start + 'css' + end + '" >';
+
+      scope.routeStyles = [];
+
+      activate();
+
+      ////
+
+      function activate() {
+        angular.element($document[0].head).append($compile(html)(scope));
+        $rootScope.$on('$stateChangeSuccess', stateChangeSuccessCallback);
+      }
+
+      // Get the parent state
+      function $$parentState(state) {
+        // Check if state has explicit parent OR we try guess parent from its name
+        var name = state.parent || (/^(.+)\.[^.]+$/.exec(state.name) || [])[1];
+        // If we were able to figure out parent name then get this state
+        return name && $state.get(name);
+      }
+
+      function stateChangeSuccessCallback(evt, toState) {
+        // From current state to the root
+        var stylesObject = {};
+        scope.routeStyles = [];
+
+        for (var state = toState; state && state.name !== ''; state = $$parentState(state)) {
+          if (state && state.data && state.data.css) {
+            if (!Array.isArray(state.data.css)) {
+              state.data.css = [state.data.css];
+            }
+
+            angular.forEach(state.data.css, function (css) {
+              // css = {name: 'layout', href: '/layout.css'}
+              if ((typeof css === 'undefined' ? 'undefined' : _typeof(css)) === 'object' && css.name && css.href && !stylesObject[css.name]) {
+                stylesObject[css.name] = css.href;
+              } else if (typeof css === 'string') {
+                stylesObject[css] = css;
+              }
+            });
+
+            angular.forEach(stylesObject, function (style) {
+              if (scope.routeStyles.indexOf(style) === -1) scope.routeStyles.push(style);
+            });
+          }
+        }
+        scope.routeStyles.reverse();
+      }
+    }
+  }
+})();
+
+},{}],7:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.2
@@ -4642,7 +4776,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],4:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.9
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -37027,8 +37161,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],5:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":4}]},{},[1,2]);
+},{"./angular":8}]},{},[1,2,3,4,5,6]);

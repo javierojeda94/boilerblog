@@ -1,0 +1,20 @@
+<header>
+  <a ui-sref="app">
+    <h1>Boiblerblog</h1>
+  </a>
+  <nav>
+    <a ui-sref=".authors">Authors</a>
+    <a ui-sref=".posts">Posts</a>
+    <a ui-sref=".contact">Contact</a>
+  </nav>
+</header>
+<main ui-view>
+  <!-- $scope'd variables doesn't need the controller name -->
+  <h2>{{ header }}</h2>
+  <!-- if the variable is declared locally in the controller -->
+  <p>{{ homeCtrl.message }}</p>
+
+</main>
+<footer>
+
+</footer>
