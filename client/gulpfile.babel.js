@@ -51,6 +51,10 @@ gulp.task("reload", ["transpile"], () => {
   browserSync.reload();
 });
 
+gulp.task("watch", () => {
+  gulp.watch(["src/**/*"],["transpile"]);
+});
+
 gulp.task("serve", ["transpile"], () => {
   browserSync.init({
     server: {

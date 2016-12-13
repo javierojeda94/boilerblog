@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "gulp --gulpfile client/gulpfile.babel.js serve",
+    "watch": "gulp --gulpfile client/gulpfile.babel.js watch",
     "dist": "gulp --gulpfile client/gulpfile.babel.js transpile"
   },
   "keywords": [
