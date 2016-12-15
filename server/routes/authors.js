@@ -33,7 +33,7 @@ router.route('/')
 router.route('/:id')
   .all((req, res, next) => {
     Author.findById(req.params.id).populate('posts').exec((err, author) => {
-      if(author){y
+      if(author){
         req.Author = author;
         next();
       }else{
