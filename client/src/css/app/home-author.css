@@ -1,0 +1,48 @@
+.author{
+  text-align: center;
+}
+.contact-data{
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 5px;
+  font-family: 'Roboto';
+}
+.contact-data .photo img {
+  width: 175px;
+}
+.posts{
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.post{
+  border: 2px solid lightgrey;
+  margin: 5px;
+}
+figure.photo img{
+  border-radius: 100%;
+}
+.truncate {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media screen and (max-width: 767px){
+  .contact-data .photo img {
+    width: 100px;
+  }
+  .posts{
+    justify-content: center;;
+  }
+}
+@media screen and (min-width: 768px){
+
+}
+@media screen and (min-width: 992px){
+
+}
+@media screen and (min-width: 1200px){
+
+}

@@ -1,0 +1,20 @@
+<article class="author">
+  <section class="contact-data">
+    <figure class="photo">
+      <img ng-show="author.photo" ng-src="{{ author.photo }}" alt="{{ author.name }}">
+      <img ng-hide="author.photo" src="img/logo.png" alt="{{ author.name }}" >
+    </figure>
+    <section class="details">
+      <h2 class="name">{{ author.name }}</h2>
+      <small class="nickname">{{ author.nickname }}</small>
+      <p><i class="bio">{{ author.bio }}</i></p>
+    </section>
+  </section>
+  <section class="posts">
+    <article class="post" ng-repeat="post in author.posts">
+      <a href="#" ui-sref="app.post(post._id)"><h3>{{ post.title }}</h3></a>
+      <p class="truncate">{{ post.body }}</p>
+      <small>{{ post.created_at | date:"MM/dd/yyyy 'at' h:mma" }}</small>
+    </article>
+  </section>
+</article>

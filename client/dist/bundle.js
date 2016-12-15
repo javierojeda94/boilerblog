@@ -19,14 +19,42 @@ _angular2.default.module('boilerblog', ["ui.router", "uiRouterStyles"]).config([
     controller: 'HomeController',
     controllerAs: 'homeCtrl',
     data: {
-      css: 'css/app/home.css'
+      css: ['css/app/home.css']
     }
   });
   $stateProvider.state('app.authors', {
     url: 'authors',
     templateUrl: 'views/app/home-authors.html',
     controller: 'AuthorsController',
-    controllerAs: 'authorsCtrl'
+    controllerAs: 'authorsCtrl',
+    resolve: {
+      authors: ['AuthorsService', function (AuthorsService) {
+        return AuthorsService.getAuthors();
+      }],
+      author: function author() {
+        return {};
+      } // return empty object
+    },
+    data: {
+      css: ['css/app/home-authors.css']
+    }
+  });
+  $stateProvider.state('app.author', {
+    url: 'authors/:id',
+    templateUrl: 'views/app/home-author.html',
+    controller: 'AuthorsController',
+    controllerAs: 'authorsCtrl',
+    resolve: {
+      authors: function authors() {
+        return [];
+      }, // retutn empty array
+      author: ['AuthorsService', '$stateParams', function (AuthorsService, $stateParams) {
+        return AuthorsService.getAuthor($stateParams.id);
+      }]
+    },
+    data: {
+      css: ['css/app/home-author.css']
+    }
   });
   $stateProvider.state('app.posts', {
     url: 'posts',
@@ -42,15 +70,13 @@ _angular2.default.module('boilerblog', ["ui.router", "uiRouterStyles"]).config([
   });
 }]);
 
-},{"angular":9,"angular-ui-router":7}],2:[function(require,module,exports){
+},{"angular":10,"angular-ui-router":8}],2:[function(require,module,exports){
 'use strict';
 
 // redefine the module and create the AuthorsController
-angular.module('boilerblog').controller('AuthorsController', ['$scope', function ($scope) {
-  // $scope'd variable
-  $scope.header = 'Autores';
-  // local variable
-  this.message = 'This is a list of the authors registered on this blog';
+angular.module('boilerblog').controller('AuthorsController', ['$scope', 'AuthorsService', 'authors', 'author', function ($scope, AuthorsService, authors, author) {
+  $scope.authors = authors.data;
+  $scope.author = author.data;
 }]);
 
 },{}],3:[function(require,module,exports){
@@ -79,11 +105,19 @@ angular.module('boilerblog').controller('HomeController', ['$scope', function ($
 'use strict';
 
 // redefine the module and create the AuthorsController
-angular.module('boilerblog').controller('PostsController', ['$scope', function ($scope) {
-  // $scope'd variable
-  $scope.header = 'Posts';
-  // local variable
-  this.message = 'This is a list of the posts publichsed by our authors';
+angular.module('boilerblog').controller('PostsController', ['$scope', '$http', function ($scope, $http) {
+
+  $scope.posts = [];
+
+  $http.get('/posts').then(getPostsSuccess, getPostsError);
+
+  function getPostsSuccess(res) {
+    $scope.posts = res.data;
+  }
+
+  function getPostsError(res) {
+    $scope.posts = res.data;
+  }
 }]);
 
 },{}],6:[function(require,module,exports){
@@ -167,6 +201,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 })();
 
 },{}],7:[function(require,module,exports){
+'use strict';
+
+angular.module('boilerblog').service('AuthorsService', ['$http', function ($http) {
+
+  this.getAuthors = function () {
+    return $http.get('authors');
+  };
+
+  this.getAuthor = function (id) {
+    return $http.get('authors/' + id);
+  };
+}]);
+
+},{}],8:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.2
@@ -4776,7 +4824,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.9
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -37161,8 +37209,8 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":8}]},{},[1,2,3,4,5,6]);
+},{"./angular":9}]},{},[1,2,3,4,5,6,7]);

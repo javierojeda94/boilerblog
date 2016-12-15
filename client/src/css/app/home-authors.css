@@ -1,0 +1,67 @@
+#authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.author{
+  flex: 1 0 45%;
+  padding: 5px 10px;
+  border: 2px solid lightgrey;
+  border-radius: 5px;
+  margin: 5px;
+  font-family: 'Roboto';
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 400px;
+}
+.author .photo img {
+  width: 175px;
+  border-radius: 100%;
+}
+.author .details {
+  width: 200px;
+}
+.author .details .profile {
+  margin-top: 15px;
+  padding: 5px;
+  background-color: white;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+  border-radius: 10px;
+  transition: background-color .25s,
+              color .25s,
+              border .25s;
+}
+.author .details .profile:hover {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  transition: background-color .25s,
+              color .25s,
+              border .25s;
+}
+.truncate {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media screen and (max-width: 767px){
+  .author .photo img {
+    width: 100px;
+  }
+}
+@media screen and (min-width: 768px){
+  article.author {
+    flex: 1 0 auto;
+  }
+}
+@media screen and (min-width: 992px){
+  .author{
+    flex: 1 0 33%;
+  }
+}
+@media screen and (min-width: 1200px){
+
+}

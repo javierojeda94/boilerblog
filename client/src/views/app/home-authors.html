@@ -1,4 +1,19 @@
-<!-- $scope'd variables doesn't need the controller name -->
-<h2>{{ header }}</h2>
-<!-- if the variable is declared locally in the controller -->
-<p>{{ authorsCtrl.message }}</p>
+<section id="authors">
+  <article class="author" ng-repeat="author in authors">
+    <figure class="photo">
+      <img ng-show="author.photo" ng-src="{{ author.photo }}" alt="{{ author.name }}">
+      <img ng-hide="author.photo" src="img/logo.png" alt="{{ author.name }}" >
+    </figure>
+    <section class="details">
+      <h3 class="name">{{ author.name }}</h3>
+      <small class="nickname">AKA {{ author.nickname }}</small>
+      <p class="bio truncate">{{ author.bio }}</p>
+      <p class="posts-count">
+        <strong><small>Has written {{ author.posts.length }} posts</small></strong>
+      </p>
+      <a ui-sref="app.author({id: author._id})">
+        <button class="profile">Ver perfil completo</button>
+      </a>
+    </section>
+  </article>
+</section>

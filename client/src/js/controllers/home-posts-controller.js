@@ -1,8 +1,17 @@
 // redefine the module and create the AuthorsController
 angular.module('boilerblog').controller('PostsController', 
-['$scope', function($scope) {
-  // $scope'd variable
-  $scope.header = 'Posts';
-  // local variable
-  this.message = 'This is a list of the posts publichsed by our authors';
+['$scope','$http', function($scope, $http) {
+
+  $scope.posts = [];
+
+  $http.get('/posts').then(getPostsSuccess, getPostsError);
+
+  function getPostsSuccess(res){
+    $scope.posts = res.data;
+  }
+
+  function getPostsError(res){
+    $scope.posts = res.data;
+  }
+
 }]);

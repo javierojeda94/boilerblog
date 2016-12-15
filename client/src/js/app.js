@@ -14,14 +14,38 @@ angular.module('boilerblog', ["ui.router", "uiRouterStyles"])
     controller: 'HomeController',
     controllerAs: 'homeCtrl',
     data: {
-      css: 'css/app/home.css'
+      css: ['css/app/home.css']
     }
   });
   $stateProvider.state('app.authors',{
     url: 'authors',
     templateUrl: 'views/app/home-authors.html',
     controller: 'AuthorsController',
-    controllerAs: 'authorsCtrl'
+    controllerAs: 'authorsCtrl',
+    resolve:{
+      authors: ['AuthorsService', function(AuthorsService){
+        return AuthorsService.getAuthors();
+      }],
+      author: function(){ return {} } // return empty object
+    },
+    data: {
+      css: ['css/app/home-authors.css']
+    }
+  });
+  $stateProvider.state('app.author',{
+    url: 'authors/:id',
+    templateUrl: 'views/app/home-author.html',
+    controller: 'AuthorsController',
+    controllerAs: 'authorsCtrl',
+    resolve:{
+      authors: function(){ return [] }, // retutn empty array
+      author: ['AuthorsService', '$stateParams', function(AuthorsService, $stateParams){
+        return AuthorsService.getAuthor($stateParams.id);
+      }]
+    },
+    data: {
+      css: ['css/app/home-author.css']
+    }
   });
   $stateProvider.state('app.posts',{
     url: 'posts',

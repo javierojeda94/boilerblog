@@ -4,12 +4,12 @@
 }
 header {
   height: 50px;
-  padding: 0 250px;
   background-color: #448ae4;
   font-family: 'Roboto', sans-serif;
   color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 header a, header nav {
   align-self: stretch;
@@ -41,14 +41,29 @@ header nav a:hover{
   cursor: pointer;
   background-color: #699de0;
 }
-main {
-  padding: 0 250px;
-}
-@media screen and (max-width: 1024px){
-  nav {
+@media screen and (max-width: 767px){
+  header, main {
+    padding: 0 50px;
+  }
+  header nav {
     display: none;
   }
-  header h1{
-
+  header a{
+    flex-grow: 0;
+  }
+}
+@media screen and (min-width: 768px){
+  header, main {
+    padding: 0 75px;
+  }
+}
+@media screen and (min-width: 992px){
+  header, main {
+    padding: 0 150px;
+  }
+}
+@media screen and (min-width: 1200px){
+  header, main {
+    padding: 0 250px;
   }
 }
